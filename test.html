@@ -1,0 +1,40 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <script>
+           // 构造函数1
+            var ComponentOne = function(){
+
+            }
+            ComponentOne.prototype.data = {
+                a:1,
+                b:2
+            }
+            // 实例化
+            var oneExmaple1 = new ComponentOne()
+            var oneExample2 = new ComponentOne()
+            console.log(`a = ${oneExample2.data.a}`)//a = 1
+            oneExmaple1.data.a = 5
+            console.log(`a = ${oneExample2.data.a}`)//a = 5
+
+            // 构造函数2
+            var CompontentTwo = function(){
+                // this指向实例对象。实例化时候，给实例对象添加data属性，属性值是data函数的调用，实例对象没有data函数，去实例对象的原型对象中找。
+                this.data = this.data()
+            }
+            CompontentTwo.prototype.data = function(){
+                return {
+                    a:1,
+                    b:2
+                }
+            }
+            // 实例化
+            var twoExmaple1 = new CompontentTwo()
+            var twoExmaple2 = new CompontentTwo()
+            console.log(`a = ${twoExmaple2.data.a}`)
+            oneExmaple1.data.a = 5
+            console.log(`a = ${twoExmaple2.data.a}`)
+        </script>
+    </body>
+</html>
