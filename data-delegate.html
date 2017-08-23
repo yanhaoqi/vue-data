@@ -1,0 +1,34 @@
+<html>
+    <head></head>
+    <body>
+        <script>
+            function App (options){
+                this.data = options.data
+                console.log('----',this)
+                this._proxy(options.data);
+            }
+            App.prototype._proxy = function(data){
+                const that = this;
+                Object.keys(data).forEach(key => {
+                    Object.defineProperty(that, key, {
+                        configurable: true,
+                        enumerable: true,
+                        get: function proxyGetter () {
+                            return that.data[key];
+                            },
+                        set: function proxySetter (val) {
+                            that.data[key] = val;
+                            }
+                    })
+                });
+            }
+            var app = new App({
+                data:{
+                    text:"我是text"
+                }
+            })
+            console.log(app)
+            console.log('---------',app.text)
+        </script>
+    </body>
+</html>
